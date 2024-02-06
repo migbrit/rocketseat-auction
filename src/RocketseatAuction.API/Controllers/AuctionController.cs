@@ -3,9 +3,7 @@ using RocketseatAuction.API.Entities;
 using RocketseatAuction.API.UseCases.Auctions.GetCurrent;
 
 namespace RocketseatAuction.API.Controllers;
-[Route("api/[controller]")]
-[ApiController]
-public class AuctionController : ControllerBase
+public class AuctionController : RocketseatAuctionBaseController
 {
     private readonly GetCurrentAuctionUseCase _getCurrentAuctionUseCase;
     public AuctionController(GetCurrentAuctionUseCase getCurrentAuctionUseCase)
