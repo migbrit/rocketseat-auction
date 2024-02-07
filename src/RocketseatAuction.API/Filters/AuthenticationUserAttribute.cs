@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RocketseatAuction.API.Repositories;
-using System.Reflection.Metadata.Ecma335;
 
 namespace RocketseatAuction.API.Filters;
 
