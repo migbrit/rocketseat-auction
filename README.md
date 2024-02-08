@@ -13,7 +13,6 @@ Clone this repository to your local environment.
 Navigate to the project directory.
 Open the terminal or command prompt in the project root.
 Run the command dotnet run to start the API.
-The API will be available at http://localhost:5000.
 
 ## Authentication
 Authentication is done via fake base64 tokens. Include the token in the request header with the key Authorization.
