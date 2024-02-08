@@ -45,6 +45,12 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
+IConfiguration config = new ConfigurationBuilder()
+           .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+           .Build();
+
+var pathdb = config["PathDB"];
+
 builder.Services.AddScoped<RocketseatAuctionDbContext>();
 
 builder.Services.AddScoped<GetCurrentAuctionUseCase>();
@@ -59,7 +65,7 @@ builder.Services.AddScoped<AuthenticationUserAttribute>();
 
 builder.Services.AddDbContext<RocketseatAuctionDbContext>(options =>
 {
-    options.UseSqlite("Data Source=C:\\Users\\MiguelFelipeReisBrit\\Documents\\Code\\leilaoDbNLW.db");
+    options.UseSqlite(config["PathDB"]);
 });
 builder.Services.AddHttpContextAccessor();
 
