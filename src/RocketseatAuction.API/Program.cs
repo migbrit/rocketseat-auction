@@ -48,8 +48,8 @@ builder.Services.AddSwaggerGen(options =>
 builder.Services.AddScoped<RocketseatAuctionDbContext>();
 
 builder.Services.AddScoped<GetCurrentAuctionUseCase>();
-builder.Services.AddScoped<GetUserUseCase>();
 builder.Services.AddScoped<CreateOfferUseCase>();
+builder.Services.AddScoped<IGetUserUseCase, GetUserUseCase>();
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
 builder.Services.AddScoped<IOfferRepository, OfferRepository>();

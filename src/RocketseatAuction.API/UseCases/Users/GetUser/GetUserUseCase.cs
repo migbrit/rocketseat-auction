@@ -3,7 +3,7 @@ using RocketseatAuction.API.Entities;
 
 namespace RocketseatAuction.API.UseCases.Users.GetUser;
 
-public class GetUserUseCase
+public class GetUserUseCase : IGetUserUseCase
 {
     private readonly IHttpContextAccessor _httpContext;
     private readonly IUserRepository _userRepository;
@@ -21,6 +21,7 @@ public class GetUserUseCase
         return _userRepository.GetUserByEmail(email);
     }
 
+    #region Auxiliars
     private string TokenOnRequest()
     {
         var authentication = _httpContext.HttpContext!.Request.Headers.Authorization.ToString();
@@ -53,4 +54,6 @@ public class GetUserUseCase
             return false;
         }
     }
+    #endregion
+
 }
