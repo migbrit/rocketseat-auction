@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using RocketseatAuction.API.Contracts;
 using RocketseatAuction.API.Repositories;
 
 namespace RocketseatAuction.API.Filters;
 
 public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFilter
 {
-    private readonly RocketseatAuctionDbContext _dbContext;
-    public AuthenticationUserAttribute(RocketseatAuctionDbContext dbContext)
+    private readonly IUserRepository _userRepository;
+    public AuthenticationUserAttribute(IUserRepository userRepository)
     {
-        _dbContext = dbContext; 
+        _userRepository = userRepository;
     }
     public void OnAuthorization(AuthorizationFilterContext context)
     {
@@ -20,7 +21,7 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
 
             string decryptedEmail = FromBase64String(token);
 
-            bool exist = _dbContext.Users.Any(user => user.Email.Equals(decryptedEmail));
+            bool exist = _userRepository.UserExists(decryptedEmail);
 
             if (!exist)
                 context.Result = new UnauthorizedObjectResult("Email is not valid");

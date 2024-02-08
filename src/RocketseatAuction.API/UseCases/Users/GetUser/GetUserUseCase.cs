@@ -1,29 +1,25 @@
-﻿using RocketseatAuction.API.Entities;
-using RocketseatAuction.API.Filters;
-using RocketseatAuction.API.Repositories;
+﻿using RocketseatAuction.API.Contracts;
+using RocketseatAuction.API.Entities;
 
 namespace RocketseatAuction.API.UseCases.Users.GetUser;
 
 public class GetUserUseCase
 {
-    private readonly RocketseatAuctionDbContext _dbContext;
     private readonly IHttpContextAccessor _httpContext;
-    public GetUserUseCase(RocketseatAuctionDbContext dbContext, IHttpContextAccessor httpContext)
+    private readonly IUserRepository _userRepository;
+    public GetUserUseCase(IHttpContextAccessor httpContext, IUserRepository userRepository)
     {
-        _dbContext = dbContext;
         _httpContext = httpContext;
+        _userRepository = userRepository;
     }
     public User Execute()
     {
-        var authenticationUserAttribute = new AuthenticationUserAttribute(_dbContext);
-
         var token = TokenOnRequest();
 
         var email = FromBase64String(token);
 
-        return _dbContext.Users.First(user => user.Email == email);
+        return _userRepository.GetUserByEmail(email);
     }
-
 
     private string TokenOnRequest()
     {
